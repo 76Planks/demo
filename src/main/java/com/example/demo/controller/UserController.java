@@ -11,7 +11,7 @@ public class UserController {
 
     private final UserService userService;
 
-    private Logger logger = Logger.getLogger(String.valueOf(UserController.class));
+    private final Logger logger = Logger.getLogger(String.valueOf(UserController.class));
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -19,7 +19,7 @@ public class UserController {
 
 
     @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable("id") Long id){
+    public User getUserById(@PathVariable Long id){
         logger.info("Fetching user with id: " + id);
         return this.userService.getUserById(id);
     }
