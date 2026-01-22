@@ -2,13 +2,16 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
 public class UserController {
 
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
     private final Logger logger = Logger.getLogger(String.valueOf(UserController.class));
@@ -28,5 +31,20 @@ public class UserController {
     public User saveUser(@RequestBody User user){
         logger.info("Saving user with name: " + user.getName());
         return this.userService.saveUser(user);
+    }
+
+
+    @GetMapping("/users")
+    public List<User> getAllUsers(){
+        logger.info("Fetching all users");
+       return userService.getAllUsers();
+    }
+
+
+    @DeleteMapping("/user/{id}")
+    public void deleteUser( @PathVariable Long id){
+        logger.info("Deleting User with id : "+id);
+        userService.deleteUser(id);
+
     }
 }
